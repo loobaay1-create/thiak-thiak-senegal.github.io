@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MTK — Livraison rapide au Sénégal</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --rouge:#cc0000;--rouge-f:#a80000;--noir:#0a0a0a;--fond:#111;
+  --fond2:#1a1a1a;--fond3:#222;--texte:#f0f0f0;--texte2:#aaa;--bordure:#2e2e2e;
+}
+body{font-family:'Open Sans',sans-serif;background:var(--noir);color:var(--texte);min-height:100vh}
+h1,h2,h3,h4{font-family:'Montserrat',sans-serif}
+nav{background:var(--fond);border-bottom:1px solid var(--bordure);position:sticky;top:0;z-index:100;padding:0 16px}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;height:56px}
+.logo{font-family:'Montserrat',sans-serif;font-weight:900;font-size:22px;color:var(--rouge);letter-spacing:-1px;cursor:pointer}
+.logo span{color:var(--texte);font-size:13px;font-weight:600;margin-left:6px}
+nav a.nl{color:var(--texte2);font-size:13px;font-weight:600;text-decoration:none;padding:6px 10px;border-radius:6px;cursor:pointer;background:none;border:none;font-family:inherit}
+nav a.nl:hover,nav a.nl.act{color:var(--texte);background:var(--fond3)}
+.nav-sp{flex:1}
+#nav-user-btn{background:var(--rouge);color:#fff;border:none;border-radius:6px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px}
+#nav-signup-btn{background:transparent;color:var(--texte2);border:1px solid var(--bordure);border-radius:6px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+#nav-signup-btn:hover{color:var(--texte);border-color:#555}
+.user-drop{position:absolute;top:62px;right:16px;background:var(--fond2);border:1px solid var(--bordure);border-radius:10px;min-width:180px;display:none;z-index:200;overflow:hidden}
+.user-drop a{display:block;padding:12px 16px;font-size:13px;color:var(--texte);cursor:pointer;text-decoration:none}
+.user-drop a:hover{background:var(--fond3)}
+.user-drop a.danger{color:#f87171}
+.page{display:none;min-height:calc(100vh - 56px)}
+.page.act{display:block}
+.hero{background:linear-gradient(135deg,#0a0a0a 0%,#1a0000 100%);padding:72px 16px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(204,0,0,0.15),transparent)}
+.hero h1{font-size:clamp(32px,6vw,64px);font-weight:900;line-height:1.1;letter-spacing:-2px;max-width:800px;margin:0 auto 20px}
+.hero h1 span{color:var(--rouge)}
+.hero p{font-size:clamp(14px,2vw,18px);color:var(--texte2);max-width:540px;margin:0 auto 36px;line-height:1.7}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-rouge{background:var(--rouge);color:#fff;border:none;border-radius:8px;padding:14px 28px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:8px;transition:background .15s}
+.btn-rouge:hover{background:var(--rouge-f)}
+.btn-ghost{background:transparent;color:var(--texte);border:1px solid var(--bordure);border-radius:8px;padding:14px 28px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:8px}
+.btn-ghost:hover{border-color:#555}
+.stats-bar{display:flex;justify-content:center;background:var(--fond2);border-top:1px solid var(--bordure);border-bottom:1px solid var(--bordure)}
+.stat-item{flex:1;max-width:220px;padding:20px 16px;text-align:center;border-right:1px solid var(--bordure)}
+.stat-item:last-child{border-right:none}
+.stat-num{font-family:'Montserrat',sans-serif;font-size:28px;font-weight:900;color:var(--rouge)}
+.stat-lbl{font-size:11px;color:var(--texte2);margin-top:3px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.section{max-width:1100px;margin:0 auto;padding:60px 16px}
+.section-title{font-size:clamp(22px,4vw,36px);font-weight:900;margin-bottom:8px;letter-spacing:-1px}
+.section-sub{color:var(--texte2);font-size:14px;margin-bottom:36px;line-height:1.6}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{background:var(--fond2);border:1px solid var(--bordure);border-radius:12px;padding:24px}
+.card-icon{width:44px;height:44px;border-radius:10px;background:rgba(204,0,0,.15);display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--rouge);font-size:22px}
+.card h3{font-size:15px;font-weight:700;margin-bottom:8px}
+.card p{font-size:13px;color:var(--texte2);line-height:1.6}
+.step-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;counter-reset:steps}
+.step{counter-increment:steps;position:relative;padding-left:44px}
+.step::before{content:counter(steps);position:absolute;left:0;top:0;width:32px;height:32px;background:var(--rouge);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:900;font-size:14px}
+.step h3{font-size:14px;font-weight:700;margin-bottom:6px}
+.step p{font-size:13px;color:var(--texte2);line-height:1.6}
+.cmd-wrap{max-width:600px;margin:0 auto;padding:32px 16px}
+.cmd-title{font-size:22px;font-weight:900;margin-bottom:4px;letter-spacing:-1px}
+.cmd-sub{color:var(--texte2);font-size:13px;margin-bottom:28px}
+.op-bar{display:flex;align-items:center;margin-bottom:32px;background:var(--fond2);border-radius:10px;overflow:hidden;border:1px solid var(--bordure)}
+.op-item{flex:1;padding:12px 8px;text-align:center;font-size:11px;font-weight:700;color:var(--texte2);text-transform:uppercase;letter-spacing:.5px;border-right:1px solid var(--bordure);transition:all .2s}
+.op-item:last-child{border-right:none}
+.op-item.act{background:var(--rouge);color:#fff}
+.order-step{display:none}
+.order-step.act{display:block}
+.form-grp{margin-bottom:16px}
+.form-grp label{display:block;font-size:11px;color:var(--texte2);margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.form-grp input,.form-grp select,.form-grp textarea{width:100%;background:var(--fond2);border:1.5px solid var(--bordure);border-radius:8px;padding:11px 14px;color:var(--texte);font-size:14px;font-family:inherit;outline:none;transition:border-color .15s}
+.form-grp input:focus,.form-grp select:focus,.form-grp textarea:focus{border-color:var(--rouge)}
+.form-grp textarea{resize:vertical;min-height:80px}
+.form-grp select option{background:#1a1a1a}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn-full{width:100%;padding:14px;background:var(--rouge);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;transition:background .15s}
+.btn-full:hover{background:var(--rouge-f)}
+.btn-full:disabled{opacity:.5;cursor:not-allowed}
+.livreur-card{background:var(--fond2);border:1.5px solid var(--bordure);border-radius:12px;padding:16px;display:flex;gap:14px;align-items:center;margin-bottom:12px;cursor:pointer;transition:border-color .2s}
+.livreur-card:hover{border-color:var(--rouge)}
+.livreur-card.sel{border-color:var(--rouge);background:rgba(204,0,0,.07)}
+.livreur-av{font-size:36px;width:52px;text-align:center;flex-shrink:0}
+.livreur-info{flex:1}
+.livreur-nom{font-weight:700;font-size:14px;margin-bottom:3px}
+.livreur-stars{font-size:12px;color:#f59e0b;margin-bottom:3px}
+.livreur-meta{font-size:11px;color:var(--texte2)}
+.livreur-prix{text-align:right;flex-shrink:0}
+.prix-num{font-family:'Montserrat',sans-serif;font-size:17px;font-weight:900;color:var(--rouge)}
+.prix-eta{font-size:11px;color:var(--texte2);margin-top:3px}
+.confirm-box{background:var(--fond2);border:1px solid var(--bordure);border-radius:12px;padding:20px;margin-bottom:20px}
+.confirm-row{display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-bottom:1px solid var(--bordure)}
+.confirm-row:last-child{border-bottom:none;font-weight:700;font-size:15px;color:var(--rouge)}
+.confirm-label{color:var(--texte2)}
+.suivi-wrap{max-width:540px;margin:0 auto;padding:32px 16px}
+.suivi-card{background:var(--fond2);border:1px solid var(--bordure);border-radius:14px;padding:24px;margin-bottom:20px}
+.suivi-step{display:flex;gap:14px;align-items:flex-start;position:relative;padding-bottom:20px}
+.suivi-step:last-child{padding-bottom:0}
+.suivi-step::before{content:'';position:absolute;left:15px;top:32px;width:2px;height:calc(100% - 16px);background:var(--bordure)}
+.suivi-step:last-child::before{display:none}
+.suivi-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;z-index:1}
+.suivi-dot.done{background:var(--rouge);color:#fff}
+.suivi-dot.act{background:rgba(204,0,0,.2);border:2px solid var(--rouge);color:var(--rouge)}
+.suivi-dot.wait{background:var(--fond3);border:2px solid var(--bordure);color:var(--texte2)}
+.suivi-txt h4{font-size:14px;font-weight:700;margin-bottom:2px}
+.suivi-txt p{font-size:12px;color:var(--texte2)}
+.dash-wrap{max-width:900px;margin:0 auto;padding:32px 16px}
+.dash-header{display:flex;align-items:center;gap:16px;margin-bottom:32px}
+.dash-av{width:56px;height:56px;border-radius:50%;background:var(--rouge);display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:900;font-size:20px}
+.dash-user-name{font-size:20px;font-weight:900}
+.dash-user-sub{font-size:13px;color:var(--texte2)}
+.dash-nav{display:flex;gap:4px;margin-bottom:28px;flex-wrap:wrap}
+.dash-nav-item{background:transparent;border:1px solid var(--bordure);border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;color:var(--texte2);cursor:pointer;font-family:inherit;transition:all .15s}
+.dash-nav-item.act,.dash-nav-item:hover{background:var(--rouge);color:#fff;border-color:var(--rouge)}
+.cmd-hist-card{background:var(--fond2);border:1px solid var(--bordure);border-radius:10px;padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:14px}
+.cmd-hist-icon{width:38px;height:38px;border-radius:8px;background:var(--fond3);display:flex;align-items:center;justify-content:center;font-size:18px}
+.cmd-hist-info{flex:1}
+.cmd-hist-ref{font-size:11px;color:var(--texte2);font-weight:700}
+.cmd-hist-title{font-size:14px;font-weight:700;margin-top:2px}
+.cmd-hist-date{font-size:11px;color:var(--texte2)}
+.badge{display:inline-block;padding:3px 8px;border-radius:5px;font-size:11px;font-weight:700}
+.badge-ok{background:rgba(34,197,94,.15);color:#4ade80}
+.badge-att{background:rgba(251,191,36,.15);color:#fbbf24}
+.metric-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px}
+.metric{background:var(--fond2);border:1px solid var(--bordure);border-radius:10px;padding:16px}
+.metric-val{font-family:'Montserrat',sans-serif;font-size:26px;font-weight:900;color:var(--rouge)}
+.metric-lbl{font-size:11px;color:var(--texte2);margin-top:3px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.livreur-page{max-width:600px;margin:0 auto;padding:40px 16px}
+.livreur-hero{text-align:center;margin-bottom:40px}
+.livreur-hero h1{font-size:28px;font-weight:900;letter-spacing:-1px;margin-bottom:10px}
+.livreur-hero p{font-size:14px;color:var(--texte2);line-height:1.7}
+.avantages{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px}
+.avantage{background:var(--fond2);border:1px solid var(--bordure);border-radius:10px;padding:14px;display:flex;gap:10px;align-items:flex-start}
+.avantage-icon{color:var(--rouge);font-size:18px;margin-top:1px}
+.avantage h4{font-size:13px;font-weight:700;margin-bottom:2px}
+.avantage p{font-size:11px;color:var(--texte2)}
+.contact-wrap{max-width:600px;margin:0 auto;padding:40px 16px}
+.offres-page{max-width:800px;margin:0 auto;padding:40px 16px}
+footer{background:var(--fond2);border-top:1px solid var(--bordure);padding:40px 16px;margin-top:60px}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px}
+.footer-logo{font-family:'Montserrat',sans-serif;font-weight:900;font-size:24px;color:var(--rouge);margin-bottom:10px}
+.footer-desc{font-size:13px;color:var(--texte2);line-height:1.6}
+.footer-col h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--texte2);margin-bottom:14px}
+.footer-col a{display:block;font-size:13px;color:var(--texte2);text-decoration:none;margin-bottom:8px;cursor:pointer}
+.footer-col a:hover{color:var(--texte)}
+.footer-bottom{text-align:center;font-size:12px;color:var(--texte2);margin-top:32px;padding-top:20px;border-top:1px solid var(--bordure)}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:1000;display:none;align-items:center;justify-content:center;padding:16px}
+.modal-bg.open{display:flex}
+.modal{background:var(--fond);border:1px solid var(--bordure);border-radius:16px;width:100%;max-width:420px;max-height:90vh;overflow-y:auto;position:relative}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:20px 20px 0}
+.modal-head h2{font-size:18px;font-weight:900}
+.modal-close{background:none;border:none;color:var(--texte2);font-size:22px;cursor:pointer;line-height:1}
+.modal-tabs{display:flex;border-bottom:1px solid var(--bordure);margin:16px 0 0}
+.modal-tab{flex:1;padding:12px;text-align:center;font-size:13px;font-weight:700;color:var(--texte2);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s}
+.modal-tab.act{color:var(--rouge);border-bottom-color:var(--rouge)}
+.modal-body{padding:20px}
+.modal-form{display:none}
+.modal-form.act{display:block}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a1a;border:1px solid var(--bordure);border-radius:10px;padding:12px 20px;font-size:13px;font-weight:600;color:var(--texte);z-index:9999;transition:transform .3s;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.loading-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;display:flex;align-items:center;justify-content:center;display:none}
+.loading-overlay.show{display:flex}
+.spinner{width:40px;height:40px;border:3px solid var(--bordure);border-top-color:var(--rouge);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:600px){.form-row{grid-template-columns:1fr}.stats-bar{flex-wrap:wrap}.stat-item{min-width:45%}.avantages{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="loading-overlay" id="loading"><div class="spinner"></div></div>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo" onclick="allerPage('accueil')">MTK <span>Thiak Thiak Swift</span></div>
+    <div style="display:flex;gap:2px">
+      <a class="nl act" id="nl-accueil" onclick="allerPage('accueil')">Accueil</a>
+      <a class="nl" id="nl-commander" onclick="allerPage('commander')">Commander</a>
+      <a class="nl" id="nl-offres" onclick="allerPage('offres')">Livreurs</a>
+      <a class="nl" id="nl-livreur" onclick="allerPage('livreur')">Devenir livreur</a>
+      <a class="nl" id="nl-contact" onclick="allerPage('contact')">Contact</a>
+    </div>
+    <div class="nav-sp"></div>
+    <button id="nav-signup-btn" onclick="ouvrirAuth('inscription')">S'inscrire</button>
+    <button id="nav-user-btn" onclick="ouvrirAuth('connexion')">Se connecter</button>
+    <div class="user-drop" id="user-dropdown">
+      <a onclick="allerPage('dashboard');fermerMenu()"><i class="ti ti-layout-dashboard" style="margin-right:8px"></i>Mon espace</a>
+      <a onclick="allerPage('suivi');fermerMenu()"><i class="ti ti-map-pin" style="margin-right:8px"></i>Suivre ma livraison</a>
+      <a class="danger" onclick="seDeconnecter()"><i class="ti ti-logout" style="margin-right:8px"></i>Se déconnecter</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ACCUEIL -->
+<div class="page act" id="pg-accueil">
+  <div class="hero">
+    <h1>Livraison rapide<br><span>partout au Sénégal</span></h1>
+    <p>Des livreurs de confiance, disponibles maintenant. Le prix se discute, la confiance nous unit.</p>
+    <div class="hero-btns">
+      <button class="btn-rouge" onclick="allerPage('commander')"><i class="ti ti-rocket"></i> Commander maintenant</button>
+      <button class="btn-ghost" onclick="allerPage('offres')"><i class="ti ti-users"></i> Voir les livreurs</button>
+    </div>
+  </div>
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num">500+</div><div class="stat-lbl">Livreurs actifs</div></div>
+    <div class="stat-item"><div class="stat-num">20 min</div><div class="stat-lbl">Délai moyen</div></div>
+    <div class="stat-item"><div class="stat-num">14 villes</div><div class="stat-lbl">Au Sénégal</div></div>
+    <div class="stat-item"><div class="stat-num">4.8★</div><div class="stat-lbl">Note moyenne</div></div>
+  </div>
+  <div class="section">
+    <div class="section-title">Pourquoi choisir MTK ?</div>
+    <div class="section-sub">Une plateforme pensée pour vous, simple et fiable.</div>
+    <div class="grid-3">
+      <div class="card"><div class="card-icon"><i class="ti ti-bolt"></i></div><h3>Ultra rapide</h3><p>Livraison en 20 minutes en moyenne dans Dakar et banlieue.</p></div>
+      <div class="card"><div class="card-icon"><i class="ti ti-shield-check"></i></div><h3>Livreurs vérifiés</h3><p>Chaque livreur est contrôlé, noté et formé par notre équipe.</p></div>
+      <div class="card"><div class="card-icon"><i class="ti ti-coin"></i></div><h3>Prix négociables</h3><p>Le prix est transparent. Vous choisissez l'offre qui vous convient.</p></div>
+      <div class="card"><div class="card-icon"><i class="ti ti-map-pin"></i></div><h3>Suivi en temps réel</h3><p>Suivez votre colis étape par étape jusqu'à la livraison.</p></div>
+      <div class="card"><div class="card-icon"><i class="ti ti-headset"></i></div><h3>Support 7j/7</h3><p>Notre équipe est disponible tous les jours de 7h à 22h.</p></div>
+      <div class="card"><div class="card-icon"><i class="ti ti-star"></i></div><h3>Évaluation mutuelle</h3><p>Notez votre livreur et contribuez à la qualité du service.</p></div>
+    </div>
+  </div>
+  <div class="section" style="background:var(--fond2);max-width:100%;padding:60px 16px">
+    <div style="max-width:1100px;margin:0 auto">
+      <div class="section-title">Comment ça marche ?</div>
+      <div class="section-sub">4 étapes simples pour recevoir votre colis.</div>
+      <div class="step-row">
+        <div class="step"><h3>Créez votre commande</h3><p>Renseignez le point de départ, l'arrivée et la description de votre colis.</p></div>
+        <div class="step"><h3>Choisissez un livreur</h3><p>Comparez les offres et sélectionnez le livreur qui vous convient.</p></div>
+        <div class="step"><h3>Suivi en direct</h3><p>Suivez la progression de votre livraison à chaque instant.</p></div>
+        <div class="step"><h3>Réception et paiement</h3><p>Payez à la réception et notez votre expérience.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="section" style="text-align:center">
+    <div class="section-title">Prêt à commander ?</div>
+    <div class="section-sub">Rejoignez des milliers de clients satisfaits chaque jour.</div>
+    <button class="btn-rouge" style="margin:0 auto" onclick="allerPage('commander')"><i class="ti ti-rocket"></i> Lancer une livraison</button>
+  </div>
+</div>
+
+<!-- COMMANDER -->
+<div class="page" id="pg-commander">
+  <div class="cmd-wrap">
+    <div class="cmd-title">Nouvelle commande</div>
+    <div class="cmd-sub">Remplissez les informations pour votre livraison</div>
+    <div class="op-bar">
+      <div class="op-item act" id="op1"><i class="ti ti-map-pin" style="font-size:13px"></i> Trajet</div>
+      <div class="op-item" id="op2"><i class="ti ti-users" style="font-size:13px"></i> Livreur</div>
+      <div class="op-item" id="op3"><i class="ti ti-check" style="font-size:13px"></i> Confirmer</div>
+      <div class="op-item" id="op4"><i class="ti ti-map" style="font-size:13px"></i> Suivi</div>
+    </div>
+    <div class="order-step act" id="order-step1">
+      <div class="form-grp"><label>Point de départ *</label><input type="text" id="o-depart" placeholder="Ex: Plateau, Dakar"></div>
+      <div class="form-grp"><label>Point d'arrivée *</label><input type="text" id="o-arrivee" placeholder="Ex: Médina, Dakar"></div>
+      <div class="form-row">
+        <div class="form-grp"><label>Type de colis</label>
+          <select id="o-type">
+            <option value="document">Document / Enveloppe</option>
+            <option value="petit">Petit colis (−5 kg)</option>
+            <option value="moyen">Colis moyen (5–15 kg)</option>
+            <option value="grand">Grand colis (+15 kg)</option>
+            <option value="alimentation">Alimentation</option>
+            <option value="autre">Autre</option>
+          </select>
+        </div>
+        <div class="form-grp"><label>Urgence</label>
+          <select id="o-urgence">
+            <option value="normal">Normal (20–40 min)</option>
+            <option value="express">Express (−20 min)</option>
+            <option value="planifie">Planifié</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-grp"><label>Instructions pour le livreur</label><textarea id="o-instructions" placeholder="Ex: Appeler à l'arrivée, colis fragile…"></textarea></div>
+      <button class="btn-full" onclick="allerEtape(2)"><i class="ti ti-arrow-right"></i> Voir les livreurs disponibles</button>
+    </div>
+    <div class="order-step" id="order-step2">
+      <div style="margin-bottom:16px;font-size:13px;color:var(--texte2)"><i class="ti ti-map-pin" style="color:var(--rouge)"></i> <strong style="color:var(--texte)" id="resume-trajet"></strong></div>
+      <div id="offres-list"></div>
+      <button class="btn-ghost" style="width:100%;margin-top:8px" onclick="allerEtape(1)"><i class="ti ti-arrow-left"></i> Retour</button>
+    </div>
+    <div class="order-step" id="order-step3">
+      <div style="font-size:15px;font-weight:700;margin-bottom:16px">Récapitulatif</div>
+      <div class="confirm-box" id="confirm-summary"></div>
+      <div class="form-grp"><label>Votre nom complet *</label><input type="text" id="o-nom" placeholder="Mamadou Diallo"></div>
+      <div class="form-grp"><label>Téléphone *</label><input type="tel" id="o-tel" placeholder="+221 77 123 45 67"></div>
+      <div class="form-grp"><label>Moyen de paiement</label>
+        <select id="o-paiement">
+          <option value="cash">Cash à la livraison</option>
+          <option value="wave">Wave</option>
+          <option value="om">Orange Money</option>
+          <option value="carte">Carte bancaire</option>
+        </select>
+      </div>
+      <button class="btn-full" onclick="confirmerCommande()"><i class="ti ti-check"></i> Confirmer la commande</button>
+      <button class="btn-ghost" style="width:100%;margin-top:10px" onclick="allerEtape(2)"><i class="ti ti-arrow-left"></i> Retour</button>
+    </div>
+    <div class="order-step" id="order-step4">
+      <div style="text-align:center;padding:32px 0">
+        <div style="font-size:52px;margin-bottom:16px">🎉</div>
+        <div style="font-size:20px;font-weight:900;margin-bottom:8px">Commande confirmée !</div>
+        <div style="font-size:13px;color:var(--texte2);margin-bottom:24px">Votre livreur est en route. Référence : <strong id="cmd-ref" style="color:var(--rouge)"></strong></div>
+        <button class="btn-rouge" style="margin:0 auto 10px" onclick="allerPage('suivi')"><i class="ti ti-map-pin"></i> Suivre ma livraison</button><br>
+        <button class="btn-ghost" style="margin:0 auto" onclick="nouvelleCommande()"><i class="ti ti-plus"></i> Nouvelle commande</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OFFRES -->
+<div class="page" id="pg-offres">
+  <div class="offres-page">
+    <div class="cmd-title">Nos livreurs</div>
+    <div class="cmd-sub" style="margin-bottom:24px">Des professionnels vérifiés et notés par notre communauté</div>
+    <div id="offres-standalone"></div>
+  </div>
+</div>
+
+<!-- SUIVI -->
+<div class="page" id="pg-suivi">
+  <div class="suivi-wrap">
+    <div class="cmd-title">Suivi de livraison</div>
+    <div class="cmd-sub" style="margin-bottom:24px">Suivez votre commande en temps réel</div>
+    <div id="suivi-content">
+      <div style="text-align:center;padding:40px 0">
+        <i class="ti ti-map-search" style="font-size:48px;color:var(--texte2)"></i>
+        <div style="margin-top:16px;font-size:14px;color:var(--texte2)">Aucune commande en cours.</div>
+        <button class="btn-rouge" style="margin:20px auto 0" onclick="allerPage('commander')"><i class="ti ti-rocket"></i> Commander</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="page" id="pg-dashboard">
+  <div class="dash-wrap">
+    <div class="dash-header">
+      <div class="dash-av" id="dash-av">?</div>
+      <div>
+        <div class="dash-user-name" id="dash-user-name">Mon espace</div>
+        <div class="dash-user-sub" id="dash-user-sub"></div>
+      </div>
+    </div>
+    <div class="dash-nav">
+      <button class="dash-nav-item act" onclick="afficherOnglet('overview',this)"><i class="ti ti-layout-dashboard" style="margin-right:6px"></i>Vue d'ensemble</button>
+      <button class="dash-nav-item" onclick="afficherOnglet('commandes',this)"><i class="ti ti-package" style="margin-right:6px"></i>Mes commandes</button>
+      <button class="dash-nav-item" onclick="afficherOnglet('profil',this)"><i class="ti ti-user" style="margin-right:6px"></i>Mon profil</button>
+    </div>
+    <div id="dash-overview">
+      <div class="metric-row" id="dash-metrics"><div class="metric"><div class="metric-val">—</div><div class="metric-lbl">Commandes</div></div></div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:14px">Dernières commandes</div>
+      <div id="dash-recent"><div style="color:var(--texte2);font-size:13px">Chargement…</div></div>
+    </div>
+    <div id="dash-commandes" style="display:none"><div id="dash-all-cmds"><div style="color:var(--texte2);font-size:13px">Chargement…</div></div></div>
+    <div id="dash-profil" style="display:none">
+      <div class="card" style="max-width:480px">
+        <div style="font-size:15px;font-weight:700;margin-bottom:20px">Mes informations</div>
+        <div class="form-grp"><label>Nom complet</label><input type="text" id="profil-nom"></div>
+        <div class="form-grp"><label>Email</label><input type="email" id="profil-email" disabled style="opacity:.5"></div>
+        <div class="form-grp"><label>Téléphone</label><input type="tel" id="profil-tel"></div>
+        <button class="btn-full" onclick="sauvegarderProfil()"><i class="ti ti-check"></i> Sauvegarder</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LIVREUR -->
+<div class="page" id="pg-livreur">
+  <div class="livreur-page">
+    <div class="livreur-hero">
+      <h1>Devenez livreur MTK</h1>
+      <p>Rejoignez notre réseau de livreurs et gagnez votre vie à votre rythme.</p>
+    </div>
+    <div class="avantages">
+      <div class="avantage"><div class="avantage-icon"><i class="ti ti-coin"></i></div><div><h4>Revenus attractifs</h4><p>Gagnez entre 50 000 et 200 000 FCFA par mois</p></div></div>
+      <div class="avantage"><div class="avantage-icon"><i class="ti ti-clock"></i></div><div><h4>Horaires libres</h4><p>Travaillez quand vous voulez</p></div></div>
+      <div class="avantage"><div class="avantage-icon"><i class="ti ti-shield-check"></i></div><div><h4>Assurance incluse</h4><p>Couverture accidents pendant chaque livraison</p></div></div>
+      <div class="avantage"><div class="avantage-icon"><i class="ti ti-star"></i></div><div><h4>Bonus de performance</h4><p>Des primes pour les meilleurs livreurs</p></div></div>
+    </div>
+    <div class="card">
+      <div style="font-size:16px;font-weight:700;margin-bottom:20px">Candidature livreur</div>
+      <div class="form-grp"><label>Nom complet *</label><input type="text" id="l-nom" placeholder="Mamadou Diallo"></div>
+      <div class="form-grp"><label>Téléphone *</label><input type="tel" id="l-tel" placeholder="+221 77 123 45 67"></div>
+      <div class="form-grp"><label>Email</label><input type="email" id="l-email" placeholder="votre@email.com"></div>
+      <div class="form-grp"><label>Type de véhicule *</label>
+        <select id="l-vehicule"><option value="">Choisir…</option><option value="moto">Moto</option><option value="velo">Vélo</option><option value="voiture">Voiture</option><option value="pied">À pied</option></select>
+      </div>
+      <div class="form-grp"><label>Zone de travail *</label><input type="text" id="l-zone" placeholder="Ex: Dakar Plateau, Médina…"></div>
+      <button class="btn-full" id="btn-livreur" onclick="soumettreCandidat()"><i class="ti ti-send"></i> Envoyer ma candidature</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="page" id="pg-contact">
+  <div class="contact-wrap">
+    <div class="cmd-title">Nous contacter</div>
+    <div class="cmd-sub" style="margin-bottom:28px">Une question ? Un problème ? On est là pour vous.</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:32px">
+      <div class="card"><div class="card-icon"><i class="ti ti-phone"></i></div><h3>Téléphone</h3><p>+221 78 440 58 53<br><span style="font-size:11px;color:var(--texte2)">7h – 22h tous les jours</span></p></div>
+      <div class="card"><div class="card-icon"><i class="ti ti-brand-whatsapp"></i></div><h3>WhatsApp</h3><p>+221 78 440 58 53</p></div>
+      <div class="card"><div class="card-icon"><i class="ti ti-mail"></i></div><h3>Email</h3><p>contact@mtk.sn</p></div>
+    </div>
+    <div class="card">
+      <div style="font-size:16px;font-weight:700;margin-bottom:20px">Envoyer un message</div>
+      <div class="form-row">
+        <div class="form-grp"><label>Nom *</label><input type="text" id="c-nom" placeholder="Votre nom"></div>
+        <div class="form-grp"><label>Email *</label><input type="email" id="c-email" placeholder="votre@email.com"></div>
+      </div>
+      <div class="form-grp"><label>Sujet</label><input type="text" id="c-sujet" placeholder="Objet de votre message"></div>
+      <div class="form-grp"><label>Message *</label><textarea id="c-msg" placeholder="Décrivez votre demande…" style="min-height:120px"></textarea></div>
+      <button class="btn-full" id="btn-contact" onclick="envoyerContact()"><i class="ti ti-send"></i> Envoyer le message</button>
+    </div>
+  </div>
+</div>
+
+<footer id="main-footer">
+  <div class="footer-inner">
+    <div><div class="footer-logo">MTK</div><div class="footer-desc">Thiak Thiak Swift — La livraison rapide et fiable au Sénégal.</div></div>
+    <div class="footer-col"><h4>Navigation</h4><a onclick="allerPage('accueil')">Accueil</a><a onclick="allerPage('commander')">Commander</a><a onclick="allerPage('offres')">Nos livreurs</a></div>
+    <div class="footer-col"><h4>Rejoindre</h4><a onclick="allerPage('livreur')">Devenir livreur</a><a onclick="ouvrirAuth('inscription')">Créer un compte</a><a onclick="allerPage('contact')">Contact</a></div>
+    <div class="footer-col"><h4>Contact</h4><a>+221 78 440 58 53</a><a>contact@mtk.sn</a><a>Dakar, Sénégal</a></div>
+  </div>
+  <div class="footer-bottom">© 2025 MTK Thiak Thiak Swift. Tous droits réservés.</div>
+</footer>
+
+<!-- MODAL AUTH -->
+<div class="modal-bg" id="modal-auth" onclick="fermerAuthSiClic(event)">
+  <div class="modal">
+    <div class="modal-head"><h2>Mon compte</h2><button class="modal-close" onclick="fermerAuth()">×</button></div>
+    <div class="modal-tabs">
+      <div class="modal-tab act" id="tab-connexion" onclick="switchTab('connexion')">Se connecter</div>
+      <div class="modal-tab" id="tab-inscription" onclick="switchTab('inscription')">S'inscrire</div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-form act" id="form-connexion">
+        <div class="form-grp"><label>Email</label><input type="email" id="login-email" placeholder="votre@email.com" onkeydown="if(event.key==='Enter')seConnecter()"></div>
+        <div class="form-grp"><label>Mot de passe</label><input type="password" id="login-pwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')seConnecter()"></div>
+        <button class="btn-full" id="btn-login" onclick="seConnecter()"><i class="ti ti-login"></i> Se connecter</button>
+        <p style="text-align:center;font-size:12px;color:var(--texte2);margin-top:12px">Pas encore de compte ? <span onclick="switchTab('inscription')" style="color:var(--rouge);cursor:pointer;font-weight:700">S'inscrire</span></p>
+      </div>
+      <div class="modal-form" id="form-inscription">
+        <div class="form-grp"><label>Nom complet *</label><input type="text" id="reg-nom" placeholder="Mamadou Diallo"></div>
+        <div class="form-grp"><label>Téléphone *</label><input type="tel" id="reg-tel" placeholder="+221 77 123 45 67"></div>
+        <div class="form-grp"><label>Email *</label><input type="email" id="reg-email" placeholder="votre@email.com"></div>
+        <div class="form-grp"><label>Mot de passe * (min. 6 caractères)</label><input type="password" id="reg-pwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')sInscrire()"></div>
+        <button class="btn-full" id="btn-register" onclick="sInscrire()"><i class="ti ti-user-plus"></i> Créer mon compte</button>
+        <p style="text-align:center;font-size:12px;color:var(--texte2);margin-top:12px">Déjà un compte ? <span onclick="switchTab('connexion')" style="color:var(--rouge);cursor:pointer;font-weight:700">Se connecter</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import { getFirestore, collection, addDoc, serverTimestamp, query, where, getDocs, orderBy, doc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC9qDTCGXMhZqxj5LtB81u38no19-vV9aA",
+  authDomain: "mtk-thiak-swift-8dc81.firebaseapp.com",
+  projectId: "mtk-thiak-swift-8dc81",
+  storageBucket: "mtk-thiak-swift-8dc81.firebasestorage.app",
+  messagingSenderId: "917416103395",
+  appId: "1:917416103395:web:21e19b5f7944ffea9224d6",
+  measurementId: "G-B88J5JZPSJ"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+window._db = db;
+window._auth = auth;
+
+onAuthStateChanged(auth, async (user) => {
+  if(user){
+    window.utilisateurActuel = user;
+    const prenom = (user.displayName || user.email).split(' ')[0];
+    const initiale = (user.displayName || user.email).charAt(0).toUpperCase();
+    document.getElementById('nav-user-btn').innerHTML = `<i class="ti ti-user-circle" style="font-size:16px"></i> ${prenom} <i class="ti ti-chevron-down" style="font-size:11px"></i>`;
+    document.getElementById('nav-user-btn').onclick = () => toggleMenu();
+    document.getElementById('nav-signup-btn').style.display = 'none';
+    document.getElementById('dash-av').textContent = initiale;
+    document.getElementById('dash-user-name').textContent = user.displayName || prenom;
+    document.getElementById('dash-user-sub').textContent = user.email;
+    document.getElementById('profil-nom').value = user.displayName || '';
+    document.getElementById('profil-email').value = user.email || '';
+    try {
+      const q = query(collection(db,'clients'), where('uid','==',user.uid));
+      const snap = await getDocs(q);
+      if(!snap.empty){ document.getElementById('profil-tel').value = snap.docs[0].data().tel || ''; }
+    } catch(e){}
+  } else {
+    window.utilisateurActuel = null;
+    document.getElementById('nav-user-btn').innerHTML = 'Se connecter';
+    document.getElementById('nav-user-btn').onclick = () => ouvrirAuth('connexion');
+    document.getElementById('nav-signup-btn').style.display = 'block';
+  }
+});
+
+window.sInscrire = async function(){
+  const nom = document.getElementById('reg-nom').value.trim();
+  const tel = document.getElementById('reg-tel').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const pwd = document.getElementById('reg-pwd').value;
+  if(!nom||!tel||!email||!pwd){afficherToast('⚠️ Remplissez tous les champs');return;}
+  if(pwd.length<6){afficherToast('⚠️ Mot de passe trop court (min. 6 caractères)');return;}
+  const btn = document.getElementById('btn-register');
+  btn.disabled=true; btn.textContent='Inscription…';
+  try{
+    const cred = await createUserWithEmailAndPassword(auth, email, pwd);
+    await updateProfile(cred.user, {displayName: nom});
+    await addDoc(collection(db,'clients'),{
+      uid: cred.user.uid, nom, email, tel,
+      role:'client', createdAt: serverTimestamp()
+    });
+    fermerAuth();
+    afficherToast('🎉 Bienvenue ' + nom.split(' ')[0] + ' !');
+    allerPage('dashboard');
+  } catch(e){
+    const msgs={'auth/email-already-in-use':'Cet email est déjà utilisé','auth/invalid-email':'Email invalide','auth/weak-password':'Mot de passe trop faible'};
+    afficherToast('❌ ' + (msgs[e.code]||e.message));
+  }
+  btn.disabled=false; btn.innerHTML='<i class="ti ti-user-plus"></i> Créer mon compte';
+};
+
+window.seConnecter = async function(){
+  const email = document.getElementById('login-email').value.trim();
+  const pwd = document.getElementById('login-pwd').value;
+  if(!email||!pwd){afficherToast('⚠️ Remplissez tous les champs');return;}
+  const btn = document.getElementById('btn-login');
+  btn.disabled=true; btn.textContent='Connexion…';
+  try{
+    await signInWithEmailAndPassword(auth, email, pwd);
+    fermerAuth();
+    afficherToast('✅ Connecté avec succès !');
+    allerPage('dashboard');
+  } catch(e){
+    const msgs={'auth/user-not-found':'Aucun compte avec cet email','auth/wrong-password':'Mot de passe incorrect','auth/invalid-credential':'Email ou mot de passe incorrect','auth/too-many-requests':'Trop de tentatives. Réessayez plus tard.'};
+    afficherToast('❌ ' + (msgs[e.code]||'Erreur de connexion'));
+  }
+  btn.disabled=false; btn.innerHTML='<i class="ti ti-login"></i> Se connecter';
+};
+
+window.seDeconnecter = async function(){
+  fermerMenu();
+  await signOut(auth);
+  afficherToast('👋 Déconnecté');
+  allerPage('accueil');
+};
+
+window.sauvegarderProfil = async function(){
+  if(!window.utilisateurActuel){afficherToast('⚠️ Connectez-vous d\'abord');return;}
+  const nom = document.getElementById('profil-nom').value.trim();
+  const tel = document.getElementById('profil-tel').value.trim();
+  if(!nom){afficherToast('⚠️ Nom requis');return;}
+  try{
+    await updateProfile(window.utilisateurActuel, {displayName: nom});
+    const q = query(collection(db,'clients'), where('uid','==',window.utilisateurActuel.uid));
+    const snap = await getDocs(q);
+    if(!snap.empty){ await updateDoc(doc(db,'clients',snap.docs[0].id),{nom,tel}); }
+    afficherToast('✅ Profil sauvegardé');
+    document.getElementById('dash-user-name').textContent = nom;
+  } catch(e){ afficherToast('❌ Erreur : ' + e.message); }
+};
+
+window.confirmerCommandeFirebase = async function(commande){
+  try{
+    commande.createdAt = serverTimestamp();
+    if(window.utilisateurActuel) commande.uid = window.utilisateurActuel.uid;
+    await addDoc(collection(db,'commandes'), commande);
+  } catch(e){ console.error('Erreur Firestore commande:', e); }
+};
+
+window.chargerCommandesFirebase = async function(){
+  if(!window.utilisateurActuel) return [];
+  try{
+    const q = query(collection(db,'commandes'), where('uid','==',window.utilisateurActuel.uid), orderBy('createdAt','desc'));
+    const snap = await getDocs(q);
+    return snap.docs.map(d => ({id:d.id,...d.data()}));
+  } catch(e){ return []; }
+};
+
+window.soumettreCandidat = async function(){
+  const nom = document.getElementById('l-nom').value.trim();
+  const tel = document.getElementById('l-tel').value.trim();
+  const vehicule = document.getElementById('l-vehicule').value;
+  const zone = document.getElementById('l-zone').value.trim();
+  if(!nom||!tel||!vehicule){afficherToast('⚠️ Remplissez tous les champs obligatoires');return;}
+  const btn = document.getElementById('btn-livreur');
+  btn.disabled=true; btn.textContent='Envoi…';
+  try{
+    const ref = 'MTK-LIV-' + Math.floor(1000+Math.random()*9000);
+    await addDoc(collection(db,'candidatures_livreurs'),{
+      nom, tel, email: document.getElementById('l-email').value.trim()||null,
+      vehicule, zone, ref, statut:'en_attente', createdAt: serverTimestamp()
+    });
+    ['l-nom','l-tel','l-email','l-zone'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('l-vehicule').value='';
+    afficherToast('🎉 Candidature ' + ref + ' envoyée ! On vous contacte sous 24h');
+  } catch(e){ afficherToast('❌ Erreur : ' + e.message); }
+  btn.disabled=false; btn.innerHTML='<i class="ti ti-send"></i> Envoyer ma candidature';
+};
+
+window.envoyerContact = async function(){
+  const nom = document.getElementById('c-nom').value.trim();
+  const email = document.getElementById('c-email').value.trim();
+  const msg = document.getElementById('c-msg').value.trim();
+  if(!nom||!email||!msg){afficherToast('⚠️ Remplissez les champs obligatoires');return;}
+  const btn = document.getElementById('btn-contact');
+  btn.disabled=true; btn.textContent='Envoi…';
+  try{
+    await addDoc(collection(db,'contacts'),{
+      nom, email, sujet: document.getElementById('c-sujet').value.trim()||'Sans sujet',
+      message: msg, lu: false, createdAt: serverTimestamp()
+    });
+    ['c-nom','c-email','c-sujet','c-msg'].forEach(id=>document.getElementById(id).value='');
+    afficherToast('✅ Message envoyé ! On vous répond sous 24h');
+  } catch(e){ afficherToast('❌ Erreur : ' + e.message); }
+  btn.disabled=false; btn.innerHTML='<i class="ti ti-send"></i> Envoyer le message';
+};
+
+console.log('✅ Firebase MTK connecté');
+</script>
+
+<script>
+const LIVREURS = [
+  {emoji:'🧑🏿',nom:'Moustapha Diallo',note:4.8,nb:109,dist:'2.9 km',eta:'26 min',prix:2500,vehicule:'Moto',zone:'Plateau / Médina'},
+  {emoji:'👨🏿',nom:'Ibrahima Ndiaye',note:4.8,nb:89,dist:'1.6 km',eta:'30 min',prix:2000,vehicule:'Vélo',zone:'Dakar Corniche'},
+  {emoji:'🧔🏿',nom:'Cheikh Fall',note:4.9,nb:196,dist:'2.1 km',eta:'20 min',prix:3000,vehicule:'Moto',zone:'Médina / HLM'},
+  {emoji:'👴🏿',nom:'Mamadou Sarr',note:4.7,nb:79,dist:'2.6 km',eta:'22 min',prix:2200,vehicule:'Moto',zone:'Pikine / Guédiawaye'},
+  {emoji:'🧑🏾',nom:'Fatou Sow',note:4.9,nb:134,dist:'1.3 km',eta:'18 min',prix:2800,vehicule:'Voiture',zone:'Almadies / Ngor'},
+];
+
+let etapeActuelle = 1;
+let livreurSelectionne = null;
+let derniereCommande = null;
+
+function allerPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('act'));
+  const pg = document.getElementById('pg-'+id);
+  if(pg) pg.classList.add('act');
+  document.querySelectorAll('.nl').forEach(n=>n.classList.remove('act'));
+  const nl = document.getElementById('nl-'+id);
+  if(nl) nl.classList.add('act');
+  const avecFooter = ['accueil','offres','livreur','contact'];
+  document.getElementById('main-footer').style.display = avecFooter.includes(id)?'block':'none';
+  window.scrollTo(0,0);
+  if(id==='offres') afficherOffresPage();
+  if(id==='dashboard'){
+    if(!window.utilisateurActuel){ouvrirAuth('connexion');allerPage('accueil');return;}
+    chargerDashboard();
+  }
+  if(id==='suivi') afficherSuivi();
+}
+
+function ouvrirAuth(mode){
+  document.getElementById('modal-auth').classList.add('open');
+  switchTab(mode==='inscription'?'inscription':'connexion');
+}
+function fermerAuth(){ document.getElementById('modal-auth').classList.remove('open'); }
+function fermerAuthSiClic(e){ if(e.target===document.getElementById('modal-auth')) fermerAuth(); }
+function switchTab(t){
+  ['connexion','inscription'].forEach(x=>{
+    document.getElementById('tab-'+x).classList.toggle('act',x===t);
+    document.getElementById('form-'+x).classList.toggle('act',x===t);
+  });
+}
+function toggleMenu(){ const m=document.getElementById('user-dropdown'); m.style.display=m.style.display==='block'?'none':'block'; }
+function fermerMenu(){ document.getElementById('user-dropdown').style.display='none'; }
+document.addEventListener('click', e=>{ if(!e.target.closest('#user-dropdown')&&!e.target.closest('#nav-user-btn')) fermerMenu(); });
+
+function allerEtape(n){
+  if(n===2){
+    const dep=document.getElementById('o-depart').value.trim();
+    const arr=document.getElementById('o-arrivee').value.trim();
+    if(!dep||!arr){afficherToast('⚠️ Renseignez le départ et l\'arrivée');return;}
+    document.getElementById('resume-trajet').textContent = dep+' → '+arr;
+    afficherOffresCommande();
+  }
+  document.getElementById('order-step'+etapeActuelle).classList.remove('act');
+  etapeActuelle=n;
+  document.getElementById('order-step'+n).classList.add('act');
+  for(let i=1;i<=4;i++){
+    const op=document.getElementById('op'+i);
+    op.classList.remove('act');
+    if(i<n) op.style.color='#4ade80';
+    else if(i===n){op.classList.add('act');op.style.color='';}
+    else op.style.color='';
+  }
+}
+
+function afficherOffresCommande(){
+  document.getElementById('offres-list').innerHTML = LIVREURS.map((l,i)=>`
+    <div class="livreur-card" id="lc-${i}" onclick="choisirLivreur(${i})">
+      <div class="livreur-av">${l.emoji}</div>
+      <div class="livreur-info">
+        <div class="livreur-nom">${l.nom}</div>
+        <div class="livreur-stars">★★★★${l.note>=4.9?'★':'☆'} ${l.note} (${l.nb} livraisons)</div>
+        <div class="livreur-meta"><i class="ti ti-map-pin" style="font-size:11px"></i> ${l.dist} · ${l.vehicule} · ${l.zone}</div>
+      </div>
+      <div class="livreur-prix"><div class="prix-num">${l.prix.toLocaleString('fr-FR')} FCFA</div><div class="prix-eta">ETA ${l.eta}</div></div>
+    </div>
+  `).join('');
+}
+
+function choisirLivreur(i){
+  livreurSelectionne = LIVREURS[i];
+  document.querySelectorAll('.livreur-card').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('lc-'+i).classList.add('sel');
+  const dep=document.getElementById('o-depart').value;
+  const arr=document.getElementById('o-arrivee').value;
+  const l=livreurSelectionne;
+  document.getElementById('confirm-summary').innerHTML=`
+    <div class="confirm-row"><span class="confirm-label">Livreur</span><span>${l.emoji} ${l.nom}</span></div>
+    <div class="confirm-row"><span class="confirm-label">Note</span><span>★ ${l.note} (${l.nb} livraisons)</span></div>
+    <div class="confirm-row"><span class="confirm-label">Départ</span><span>${dep}</span></div>
+    <div class="confirm-row"><span class="confirm-label">Arrivée</span><span>${arr}</span></div>
+    <div class="confirm-row"><span class="confirm-label">Délai estimé</span><span>${l.eta}</span></div>
+    <div class="confirm-row"><span class="confirm-label">Prix</span><span>${l.prix.toLocaleString('fr-FR')} FCFA</span></div>
+  `;
+  allerEtape(3);
+  afficherToast('✅ '+l.nom+' sélectionné');
+}
+
+async function confirmerCommande(){
+  const nom=document.getElementById('o-nom').value.trim();
+  const tel=document.getElementById('o-tel').value.trim();
+  if(!nom||!tel){afficherToast('⚠️ Renseignez votre nom et téléphone');return;}
+  if(!livreurSelectionne){afficherToast('⚠️ Aucun livreur sélectionné');return;}
+  const ref='MTK-'+Math.floor(10000+Math.random()*90000);
+  const now = new Date();
+  const commande={
+    ref, nom, tel,
+    depart: document.getElementById('o-depart').value,
+    arrivee: document.getElementById('o-arrivee').value,
+    typeColis: document.getElementById('o-type').value,
+    urgence: document.getElementById('o-urgence').value,
+    instructions: document.getElementById('o-instructions').value,
+    paiement: document.getElementById('o-paiement').value,
+    livreur: livreurSelectionne,
+    statut:'en_route',
+    date: now.toLocaleDateString('fr-FR'),
+    heure: now.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})
+  };
+  derniereCommande = commande;
+  document.getElementById('cmd-ref').textContent = ref;
+  allerEtape(4);
+  afficherToast('🎉 Commande '+ref+' confirmée !');
+  if(window.confirmerCommandeFirebase) await window.confirmerCommandeFirebase({...commande});
+}
+
+function nouvelleCommande(){
+  allerEtape(1);
+  ['o-depart','o-arrivee','o-instructions','o-nom','o-tel'].forEach(id=>document.getElementById(id).value='');
+  livreurSelectionne=null;
+}
+
+function afficherOffresPage(){
+  document.getElementById('offres-standalone').innerHTML = LIVREURS.map(l=>`
+    <div class="livreur-card" style="cursor:default">
+      <div class="livreur-av">${l.emoji}</div>
+      <div class="livreur-info">
+        <div class="livreur-nom">${l.nom}</div>
+        <div class="livreur-stars">★★★★${l.note>=4.9?'★':'☆'} ${l.note} (${l.nb} livraisons)</div>
+        <div class="livreur-meta"><i class="ti ti-map-pin" style="font-size:11px"></i> ${l.zone} · ${l.vehicule}</div>
+        <div style="margin-top:8px"><button class="btn-rouge" style="font-size:12px;padding:7px 14px" onclick="allerPage('commander')"><i class="ti ti-rocket"></i> Choisir ce livreur</button></div>
+      </div>
+      <div class="livreur-prix"><div class="prix-num">${l.prix.toLocaleString('fr-FR')} FCFA</div><div class="prix-eta">ETA ${l.eta}</div></div>
+    </div>
+  `).join('');
+}
+
+function afficherSuivi(){
+  const el=document.getElementById('suivi-content');
+  const cmd=derniereCommande;
+  if(!cmd) return;
+  const etapes=[
+    {label:'Commande confirmée',desc:'Votre commande a été reçue',fait:true},
+    {label:'Livreur en route',desc:cmd.livreur.nom+' se dirige vers le point de départ',fait:true},
+    {label:'Colis récupéré',desc:'Le livreur a pris en charge votre colis',fait:false},
+    {label:'En cours de livraison',desc:'Direction : '+cmd.arrivee,fait:false},
+    {label:'Livré',desc:'Colis remis avec succès',fait:false},
+  ];
+  const nbFait=etapes.filter(e=>e.fait).length;
+  el.innerHTML=`
+    <div class="suivi-card">
+      <div style="font-size:11px;color:var(--texte2);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Commande ${cmd.ref}</div>
+      <div style="font-size:20px;font-weight:900;margin-bottom:4px">🚀 Livreur en route</div>
+      <div style="font-size:13px;color:var(--texte2);margin-bottom:20px">Arrivée estimée dans ${cmd.livreur.eta} · ${cmd.livreur.nom}</div>
+      <div>
+        ${etapes.map((e,i)=>`
+          <div class="suivi-step">
+            <div class="suivi-dot ${e.fait?(i===nbFait-1?'act':'done'):'wait'}">
+              ${e.fait?'<i class="ti ti-check" style="font-size:13px"></i>':(i+1)}
+            </div>
+            <div class="suivi-txt"><h4>${e.label}</h4><p>${e.desc}</p></div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    <div class="suivi-card">
+      <div style="font-size:13px;font-weight:700;margin-bottom:12px">Détails</div>
+      <div class="confirm-row"><span class="confirm-label">Départ</span><span>${cmd.depart}</span></div>
+      <div class="confirm-row"><span class="confirm-label">Arrivée</span><span>${cmd.arrivee}</span></div>
+      <div class="confirm-row"><span class="confirm-label">Livreur</span><span>${cmd.livreur.emoji} ${cmd.livreur.nom}</span></div>
+      <div class="confirm-row"><span class="confirm-label">Prix</span><span style="color:var(--rouge);font-weight:700">${cmd.livreur.prix.toLocaleString('fr-FR')} FCFA</span></div>
+    </div>
+  `;
+}
+
+async function chargerDashboard(){
+  if(!window.utilisateurActuel) return;
+  let cmds=[];
+  if(window.chargerCommandesFirebase) cmds = await window.chargerCommandesFirebase();
+  const total=cmds.reduce((s,c)=>s+(c.livreur?c.livreur.prix:0),0);
+  document.getElementById('dash-metrics').innerHTML=`
+    <div class="metric"><div class="metric-val">${cmds.length}</div><div class="metric-lbl">Commandes</div></div>
+    <div class="metric"><div class="metric-val">${total.toLocaleString('fr-FR')}</div><div class="metric-lbl">FCFA dépensés</div></div>
+    <div class="metric"><div class="metric-val">${cmds.filter(c=>c.statut==='livre').length}</div><div class="metric-lbl">Livrées</div></div>
+  `;
+  const html=cmds.length?cmds.slice(0,5).map(c=>`
+    <div class="cmd-hist-card">
+      <div class="cmd-hist-icon">📦</div>
+      <div class="cmd-hist-info">
+        <div class="cmd-hist-ref">${c.ref}</div>
+        <div class="cmd-hist-title">${c.depart} → ${c.arrivee}</div>
+        <div class="cmd-hist-date">${c.date} à ${c.heure} · ${c.livreur?c.livreur.nom:'N/A'}</div>
+      </div>
+      <div><span class="badge badge-att">En cours</span><br><span style="font-size:12px;font-weight:700;color:var(--rouge)">${c.livreur?c.livreur.prix.toLocaleString('fr-FR')+' FCFA':''}</span></div>
+    </div>
+  `).join(''):'<div style="color:var(--texte2);font-size:13px;text-align:center;padding:32px 0">Aucune commande pour l\'instant.<br><button class="btn-rouge" style="margin:16px auto 0" onclick="allerPage(\'commander\')"><i class="ti ti-rocket"></i> Commander maintenant</button></div>';
+  document.getElementById('dash-recent').innerHTML=html;
+  document.getElementById('dash-all-cmds').innerHTML=cmds.length?cmds.map(c=>`
+    <div class="cmd-hist-card">
+      <div class="cmd-hist-icon">📦</div>
+      <div class="cmd-hist-info">
+        <div class="cmd-hist-ref">${c.ref}</div>
+        <div class="cmd-hist-title">${c.depart} → ${c.arrivee}</div>
+        <div class="cmd-hist-date">${c.date} à ${c.heure}</div>
+      </div>
+      <span class="badge badge-att">En cours</span>
+    </div>
+  `).join(''):'<div style="color:var(--texte2);font-size:13px;padding:20px 0">Aucune commande.</div>';
+}
+
+function afficherOnglet(t,btn){
+  ['overview','commandes','profil'].forEach(x=>{
+    const el=document.getElementById('dash-'+x);
+    if(el) el.style.display=x===t?'block':'none';
+  });
+  document.querySelectorAll('.dash-nav-item').forEach(b=>b.classList.remove('act'));
+  if(btn) btn.classList.add('act');
+}
+
+function afficherToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),3500);
+}
+
+document.getElementById('main-footer').style.display='block';
+</script>
+</body>
+</html>
